@@ -3,15 +3,15 @@ import { FUTURE_EVENTS_DATA } from "../dummy-store/data";
 
 const FeaturedEvents = () => {
     return (
-        <div className="w-full flex items-center justify-center overflow-ellipsis text-blue-500 py-4">
+        <div className="w-full overflow-x-scroll text-blue-500 py-4">
             {/* WRAPPER */}
-            <div className="w-full flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-4 p-4">
+            <div className="w-max flex">
                 {/* SINGLE ITEM */}
                 {FUTURE_EVENTS_DATA.map((event, index) => {
                     return (
                         <div
                             key={index}
-                            className="h-180 w-[380] md:h-260 md:w-200 flex flex-col gap-2 items-center justify-center
+                            className="h-180 w-[380] md:h-260 md:w-160 flex flex-col gap-2 items-center justify-center
                                      p-3 hover:bg-sky-50 transition duration-300 m-4 ease-in-out 
                                      border-2 border-blue-100 rounded-xl shadow-lg"
                         >

@@ -35,7 +35,7 @@ type Event = {
     time: string;
     location: string;
     price: number;
-    options: {
+    options?: {
         option: string;
         additionalPrice: number;
     }[];
@@ -56,8 +56,12 @@ export const FUTURE_EVENTS_DATA: Events = [
         price: 80,
         options: [
             {
-                option: "Standard Premuium Ticket",
-                additionalPrice: 20,
+                option: "Standard Ticket",
+                additionalPrice: 0,
+            },
+            {
+                option: "Premium Ticket",
+                additionalPrice: 30,
             },
             {
                 option: "VIP Ticket",
@@ -77,12 +81,16 @@ export const FUTURE_EVENTS_DATA: Events = [
         price: 120,
         options: [
             {
-                option: "Standard Premium Ticket",
-                additionalPrice: 20,
+                option: "Standard Ticket",
+                additionalPrice: 0,
+            },
+            {
+                option: "Premium Ticket",
+                additionalPrice: 50,
             },
             {
                 option: "VIP Ticket",
-                additionalPrice: 50,
+                additionalPrice: 80,
             },
         ],
     },
@@ -98,12 +106,16 @@ export const FUTURE_EVENTS_DATA: Events = [
         price: 90,
         options: [
             {
-                option: "Standard Premium Ticket",
-                additionalPrice: 20,
+                option: "Standard Ticket",
+                additionalPrice: 0,
+            },
+            {
+                option: "Premium Ticket",
+                additionalPrice: 35,
             },
             {
                 option: "VIP Ticket",
-                additionalPrice: 50,
+                additionalPrice: 65,
             },
         ],
     },
@@ -119,12 +131,16 @@ export const FUTURE_EVENTS_DATA: Events = [
         price: 110,
         options: [
             {
-                option: "Standard Premium Ticket",
-                additionalPrice: 20,
+                option: "Standard Ticket",
+                additionalPrice: 0,
+            },
+            {
+                option: "Premium Ticket",
+                additionalPrice: 40,
             },
             {
                 option: "VIP Ticket",
-                additionalPrice: 50,
+                additionalPrice: 75,
             },
         ],
     },
@@ -140,12 +156,16 @@ export const FUTURE_EVENTS_DATA: Events = [
         price: 130,
         options: [
             {
-                option: "Standard Premium Ticket",
-                additionalPrice: 20,
+                option: "Standard Ticket",
+                additionalPrice: 0,
+            },
+            {
+                option: "Premium Ticket",
+                additionalPrice: 50,
             },
             {
                 option: "VIP Ticket",
-                additionalPrice: 50,
+                additionalPrice: 90,
             },
         ],
     },
@@ -162,11 +182,15 @@ export const FUTURE_EVENTS_DATA: Events = [
         options: [
             {
                 option: "Standard Ticket",
-                additionalPrice: 15,
+                additionalPrice: 0,
             },
             {
-                option: "VIP Ticket with Portfolio Review",
+                option: "Premium Ticket",
                 additionalPrice: 40,
+            },
+            {
+                option: "VIP Ticket",
+                additionalPrice: 80,
             },
         ],
     },
@@ -183,11 +207,15 @@ export const FUTURE_EVENTS_DATA: Events = [
         options: [
             {
                 option: "Standard Ticket",
-                additionalPrice: 10,
+                additionalPrice: 0,
             },
             {
-                option: "VIP Ticket with Guided Tour",
-                additionalPrice: 30,
+                option: "Premium Ticket",
+                additionalPrice: 25,
+            },
+            {
+                option: "VIP Ticket",
+                additionalPrice: 55,
             },
         ],
     },
@@ -204,11 +232,15 @@ export const FUTURE_EVENTS_DATA: Events = [
         options: [
             {
                 option: "Standard Ticket",
-                additionalPrice: 15,
+                additionalPrice: 0,
             },
             {
-                option: "VIP Ticket with Art Supplies",
-                additionalPrice: 35,
+                option: "Premium Ticket",
+                additionalPrice: 20,
+            },
+            {
+                option: "VIP Ticket",
+                additionalPrice: 50,
             },
         ],
     },
@@ -225,11 +257,15 @@ export const FUTURE_EVENTS_DATA: Events = [
         options: [
             {
                 option: "Standard Ticket",
-                additionalPrice: 20,
+                additionalPrice: 0,
             },
             {
-                option: "VIP Ticket with Lunch Included",
-                additionalPrice: 50,
+                option: "Premium Ticket",
+                additionalPrice: 60,
+            },
+            {
+                option: "VIP Ticket",
+                additionalPrice: 100,
             },
         ],
     },
@@ -246,12 +282,64 @@ export const FUTURE_EVENTS_DATA: Events = [
         options: [
             {
                 option: "Standard Ticket",
-                additionalPrice: 10,
+                additionalPrice: 0,
             },
             {
-                option: "VIP Ticket with Sketchbook",
-                additionalPrice: 25,
+                option: "Premium Ticket",
+                additionalPrice: 20,
+            },
+            {
+                option: "VIP Ticket",
+                additionalPrice: 45,
             },
         ],
+    },
+];
+
+type EventCategory = {
+    id: number;
+    slug: string;
+    title: string;
+    image: string;
+    description: string;
+    color: string;
+};
+
+export const EVENTS_CATEGORIES: EventCategory[] = [
+    {
+        id: 1,
+        slug: "art",
+        title: "Art",
+        image: "/events/event_11.jpg",
+        description:
+            "Explore a variety of art events, including painting workshops, exhibitions, and more.",
+        color: "white",
+    },
+    {
+        id: 2,
+        slug: "photo",
+        title: "Photo",
+        image: "/events/event_12.jpg",
+        description:
+            "Join photography workshops, learn techniques, and capture stunning moments.",
+        color: "green",
+    },
+    {
+        id: 3,
+        slug: "music",
+        title: "Music",
+        image: "/events/event_13.jpg",
+        description:
+            "Experience live music events, concerts, and workshops with talented artists.",
+        color: "#3357FF",
+    },
+    {
+        id: 4,
+        slug: "dance",
+        title: "Dance",
+        image: "/events/event_14.jpg",
+        description:
+            "Participate in dance workshops, classes, and performances across various styles.",
+        color: "#FF33A1",
     },
 ];
