@@ -310,7 +310,7 @@ export const EVENTS_CATEGORIES: EventCategory[] = [
         id: 1,
         slug: "art",
         title: "Art",
-        image: "/events/event_11.jpg",
+        image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
         description:
             "Explore a variety of art events, including painting workshops, exhibitions, and more.",
         color: "white",
@@ -319,7 +319,7 @@ export const EVENTS_CATEGORIES: EventCategory[] = [
         id: 2,
         slug: "photo",
         title: "Photo",
-        image: "/events/event_12.jpg",
+        image: "https://plus.unsplash.com/premium_photo-1681487469745-91d1d8a5836b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
         description:
             "Join photography workshops, learn techniques, and capture stunning moments.",
         color: "green",
@@ -328,7 +328,7 @@ export const EVENTS_CATEGORIES: EventCategory[] = [
         id: 3,
         slug: "music",
         title: "Music",
-        image: "/events/event_13.jpg",
+        image: "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
         description:
             "Experience live music events, concerts, and workshops with talented artists.",
         color: "#3357FF",
@@ -337,7 +337,7 @@ export const EVENTS_CATEGORIES: EventCategory[] = [
         id: 4,
         slug: "dance",
         title: "Dance",
-        image: "/events/event_14.jpg",
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
         description:
             "Participate in dance workshops, classes, and performances across various styles.",
         color: "#FF33A1",

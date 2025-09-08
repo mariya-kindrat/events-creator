@@ -1,0 +1,32 @@
+# Development PostgreSQL Image
+FROM postgres:16-alpine
+
+# Set version and environment labels
+LABEL version="1.1.0-dev"
+LABEL description="Custom PostgreSQL for Events API - Development Environment"
+LABEL environment="development"
+
+# Development environment variables
+ENV POSTGRES_DB=event_db
+ENV POSTGRES_USER=user
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_HOST_AUTH_METHOD=trust
+
+# Copy initialization scripts
+COPY ./init-scripts/ /docker-entrypoint-initdb.d/
+
+# Copy development configuration
+COPY ./configs/postgresql.dev.conf /etc/postgresql/postgresql.conf
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD pg_isready -U $POSTGRES_USER -d $POSTGRES_DB || exit 1
+
+# Expose PostgreSQL port
+EXPOSE 5432
+
+# Enable verbose logging for development
+ENV POSTGRES_INITDB_ARGS="--auth-host=trust --auth-local=trust"
+
+# Set custom command to use our config
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf", "-c", "log_statement=all"]

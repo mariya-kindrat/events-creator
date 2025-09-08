@@ -1,0 +1,156 @@
+name: Build and Push PostgreSQL Images
+
+on:
+    push:
+        branches: [main, develop]
+        paths: ["docker-postgres/**"]
+    pull_request:
+        branches: [main]
+        paths: ["docker-postgres/**"]
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Environment to build"
+                required: true
+                default: "all"
+                type: choice
+                options:
+                    - all
+                    - dev
+                    - staging
+                    - prod
+
+env:
+    REGISTRY: docker.io
+    IMAGE_NAME: andriyko1983/events-postgres
+
+jobs:
+    build-and-push:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                environment: [dev, staging, prod]
+                include:
+                    - environment: dev
+                      dockerfile: Dockerfile.dev
+                      tag_suffix: -dev
+                    - environment: staging
+                      dockerfile: Dockerfile.staging
+                      tag_suffix: -staging
+                    - environment: prod
+                      dockerfile: Dockerfile.prod
+                      tag_suffix: -prod
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Log in to Docker Hub
+              if: github.event_name != 'pull_request'
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Extract metadata
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+                  tags: |
+                      type=ref,event=branch,suffix=${{ matrix.tag_suffix }}
+                      type=ref,event=pr,suffix=${{ matrix.tag_suffix }}
+                      type=sha,suffix=${{ matrix.tag_suffix }}
+                      type=raw,value=latest${{ matrix.tag_suffix }},enable={{is_default_branch}}
+
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v5
+              with:
+                  context: ./docker-postgres
+                  file: ./docker-postgres/${{ matrix.dockerfile }}
+                  push: ${{ github.event_name != 'pull_request' }}
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max
+                  platforms: linux/amd64,linux/arm64
+
+            - name: Test image
+              if: github.event_name == 'pull_request'
+              run: |
+                  docker run --rm -d --name test-postgres-${{ matrix.environment }} \
+                    -e POSTGRES_PASSWORD=test_password \
+                    -p 5432:5432 \
+                    ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}${{ matrix.tag_suffix }}
+
+                  # Wait for PostgreSQL to start
+                  sleep 30
+
+                  # Test connection
+                  docker exec test-postgres-${{ matrix.environment }} pg_isready -U user -d event_db
+
+                  # Clean up
+                  docker stop test-postgres-${{ matrix.environment }}
+
+    security-scan:
+        runs-on: ubuntu-latest
+        needs: build-and-push
+        if: github.event_name != 'pull_request'
+
+        strategy:
+            matrix:
+                environment: [dev, staging, prod]
+                include:
+                    - environment: dev
+                      tag_suffix: -dev
+                    - environment: staging
+                      tag_suffix: -staging
+                    - environment: prod
+                      tag_suffix: -prod
+
+        steps:
+            - name: Run Trivy vulnerability scanner
+              uses: aquasecurity/trivy-action@master
+              with:
+                  image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}${{ matrix.tag_suffix }}"
+                  format: "sarif"
+                  output: "trivy-results-${{ matrix.environment }}.sarif"
+
+            - name: Upload Trivy scan results to GitHub Security tab
+              uses: github/codeql-action/upload-sarif@v3
+              with:
+                  sarif_file: "trivy-results-${{ matrix.environment }}.sarif"
+
+    update-version:
+        runs-on: ubuntu-latest
+        needs: [build-and-push, security-scan]
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Update version history
+              run: |
+                  echo "## Version $(date +%Y.%m.%d)-${{ github.sha }}" >> docker-postgres/VERSION_HISTORY.md
+                  echo "- Built on: $(date)" >> docker-postgres/VERSION_HISTORY.md
+                  echo "- Commit: ${{ github.sha }}" >> docker-postgres/VERSION_HISTORY.md
+                  echo "- Images:" >> docker-postgres/VERSION_HISTORY.md
+                  echo "  - andriyko1983/events-postgres:latest-dev" >> docker-postgres/VERSION_HISTORY.md
+                  echo "  - andriyko1983/events-postgres:latest-staging" >> docker-postgres/VERSION_HISTORY.md
+                  echo "  - andriyko1983/events-postgres:latest-prod" >> docker-postgres/VERSION_HISTORY.md
+                  echo "" >> docker-postgres/VERSION_HISTORY.md
+
+            - name: Commit version update
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+                  git add docker-postgres/VERSION_HISTORY.md
+                  git commit -m "Update PostgreSQL image version history [skip ci]" || exit 0
+                  git push

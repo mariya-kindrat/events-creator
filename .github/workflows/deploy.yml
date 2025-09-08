@@ -1,0 +1,118 @@
+name: Deploy Events API
+
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Environment to deploy to"
+                required: true
+                default: "staging"
+                type: choice
+                options:
+                    - staging
+                    - production
+            version:
+                description: "Version to deploy (leave empty for latest)"
+                required: false
+                type: string
+
+env:
+    REGISTRY: docker.io
+    POSTGRES_IMAGE: andriyko1983/events-postgres
+    APP_IMAGE: andriyko1983/events-api
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: ${{ github.event.inputs.environment }}
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set deployment variables
+              id: vars
+              run: |
+                  if [ "${{ github.event.inputs.environment }}" = "production" ]; then
+                    echo "postgres_tag=latest-prod" >> $GITHUB_OUTPUT
+                    echo "compose_file=docker-compose.prod.yml" >> $GITHUB_OUTPUT
+                    echo "env_file=.env.production" >> $GITHUB_OUTPUT
+                  else
+                    echo "postgres_tag=latest-staging" >> $GITHUB_OUTPUT
+                    echo "compose_file=docker-compose.staging.yml" >> $GITHUB_OUTPUT
+                    echo "env_file=.env.staging" >> $GITHUB_OUTPUT
+                  fi
+
+                  if [ -n "${{ github.event.inputs.version }}" ]; then
+                    echo "app_tag=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+                  else
+                    echo "app_tag=latest" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Create deployment environment file
+              run: |
+                  cat > ${{ steps.vars.outputs.env_file }} << EOF
+                  # Database Configuration
+                  DB_USER=${{ secrets.DB_USER }}
+                  DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                  DB_NAME=${{ secrets.DB_NAME }}
+                  DATABASE_URL=postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@db:5432/${{ secrets.DB_NAME }}
+
+                  # NextAuth Configuration
+                  NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+                  NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+
+                  # Google OAuth
+                  GOOGLE_ID=${{ secrets.GOOGLE_ID }}
+                  GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}
+
+                  # Stripe
+                  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+                  STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+                  EOF
+
+            - name: Update docker-compose with correct image tags
+              run: |
+                  sed -i "s|andriyko1983/events-postgres:.*|andriyko1983/events-postgres:${{ steps.vars.outputs.postgres_tag }}|g" ${{ steps.vars.outputs.compose_file }}
+                  sed -i "s|andriyko1983/events-api:.*|andriyko1983/events-api:${{ steps.vars.outputs.app_tag }}|g" ${{ steps.vars.outputs.compose_file }}
+
+            - name: Deploy to server
+              uses: appleboy/ssh-action@v1.0.0
+              with:
+                  host: ${{ secrets.DEPLOY_HOST }}
+                  username: ${{ secrets.DEPLOY_USER }}
+                  key: ${{ secrets.DEPLOY_SSH_KEY }}
+                  port: ${{ secrets.DEPLOY_PORT }}
+                  script: |
+                      # Create deployment directory
+                      mkdir -p /opt/events-api
+                      cd /opt/events-api
+
+                      # Pull latest images
+                      docker pull ${{ env.POSTGRES_IMAGE }}:${{ steps.vars.outputs.postgres_tag }}
+                      docker pull ${{ env.APP_IMAGE }}:${{ steps.vars.outputs.app_tag }}
+
+                      # Stop existing services
+                      docker-compose -f ${{ steps.vars.outputs.compose_file }} down || true
+
+                      # Start new services
+                      docker-compose -f ${{ steps.vars.outputs.compose_file }} up -d
+
+                      # Wait for database to be ready
+                      sleep 30
+
+                      # Run database migrations
+                      docker-compose -f ${{ steps.vars.outputs.compose_file }} exec -T app npx prisma migrate deploy
+
+                      # Health check
+                      sleep 30
+                      curl -f http://localhost:3000/api/health || echo "Health check failed"
+
+            - name: Notify deployment status
+              if: always()
+              uses: 8398a7/action-slack@v3
+              with:
+                  status: ${{ job.status }}
+                  channel: "#deployments"
+                  webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+                  fields: repo,message,commit,author,action,eventName,ref,workflow

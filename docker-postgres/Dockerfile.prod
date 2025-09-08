@@ -1,0 +1,32 @@
+# Production PostgreSQL Image
+FROM postgres:16-alpine
+
+# Set version and environment labels
+LABEL version="1.1.0-prod"
+LABEL description="Custom PostgreSQL for Events API - Production Environment"
+LABEL environment="production"
+
+# Production environment variables (will be overridden by docker-compose)
+ENV POSTGRES_DB=event_db
+ENV POSTGRES_USER=user
+ENV POSTGRES_PASSWORD=change_me_in_production
+
+# Copy initialization scripts
+COPY ./init-scripts/ /docker-entrypoint-initdb.d/
+
+# Copy production configuration
+COPY ./configs/postgresql.prod.conf /etc/postgresql/postgresql.conf
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD pg_isready -U $POSTGRES_USER -d $POSTGRES_DB || exit 1
+
+# Expose PostgreSQL port
+EXPOSE 5432
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S postgres_group && \
+    adduser -S -D -H -u 1001 -s /sbin/nologin -G postgres_group postgres_user
+
+# Set custom command to use our config with security optimizations
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]

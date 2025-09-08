@@ -1,0 +1,37 @@
+services:
+    db:
+        image: andriyko1983/events-postgres:v1.1.1
+        restart: unless-stopped
+        shm_size: 256mb
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - events-network
+        # Don't expose port in production - use internal network
+        # ports:
+        #   - "5432:5432"
+
+    app:
+        image: andriyko1983/events-api:latest
+        restart: unless-stopped
+        environment:
+            DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+            NEXTAUTH_URL: ${NEXTAUTH_URL}
+            NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        ports:
+            - "3000:3000"
+        depends_on:
+            - db
+        networks:
+            - events-network
+
+volumes:
+    postgres_data:
+
+networks:
+    events-network:
+        driver: bridge
