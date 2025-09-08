@@ -1,0 +1,27 @@
+version: 1
+applications:
+    - frontend:
+          phases:
+              preBuild:
+                  commands:
+                      - echo "Installing dependencies..."
+                      - npm ci
+                      - echo "Generating Prisma client..."
+                      - npx prisma generate
+              build:
+                  commands:
+                      - echo "Building Next.js application..."
+                      - npm run build
+              postBuild:
+                  commands:
+                      - echo "Build completed successfully!"
+          artifacts:
+              baseDirectory: .next
+              files:
+                  - "**/*"
+          cache:
+              paths:
+                  - node_modules/**/*
+                  - .next/cache/**/*
+                  - .next/static/**/*
+      appRoot: /
