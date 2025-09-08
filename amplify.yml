@@ -24,4 +24,3 @@ applications:
                   - node_modules/**/*
                   - .next/cache/**/*
                   - .next/static/**/*
-      appRoot: /
