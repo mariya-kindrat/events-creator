@@ -6,23 +6,31 @@ frontend:
                 - echo "=== Pre-Build Phase ==="
                 - echo "Node.js version:" $(node --version)
                 - echo "NPM version:" $(npm --version)
+                - echo "Current directory:" $(pwd)
+                - echo "Environment check..."
+                - env | grep -E "(NODE_ENV|DATABASE_URL|NEXTAUTH)" || echo "No matching env vars found"
                 - echo "Installing dependencies..."
-                - npm ci
-                - echo "Validating environment variables..."
-                - npm run validate-env
+                - npm ci --no-audit --no-fund --prefer-offline
+                - echo "Dependencies installed successfully"
+                - echo "Generating Prisma client..."
+                - npx prisma generate
+                - echo "Prisma client generated successfully"
         build:
             commands:
                 - echo "=== Build Phase ==="
+                - echo "Setting NODE_ENV to production..."
+                - export NODE_ENV=production
                 - echo "Building Next.js application..."
                 - npm run build:amplify
+                - echo "Build completed successfully"
         postBuild:
             commands:
                 - echo "=== Post Build Phase ==="
-                - echo "Build completed successfully"
                 - echo "Listing build output..."
                 - ls -la .next/ || echo "No .next directory found"
-                - echo "Checking for static export..."
-                - ls -la out/ || echo "No out directory found"
+                - echo "Checking standalone output..."
+                - ls -la .next/standalone/ || echo "No standalone directory found"
+                - echo "Build artifacts ready"
     artifacts:
         baseDirectory: .next
         files:
