@@ -69,7 +69,10 @@ const CheckoutForm = () => {
             //`Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/success",
+                return_url:
+                    (process.env.NEXT_PUBLIC_APP_URL ||
+                        process.env.NEXTAUTH_URL ||
+                        "http://localhost:3000") + "/success",
             },
         });
 

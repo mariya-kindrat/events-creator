@@ -19,16 +19,22 @@ const BookingPage = () => {
     const { isPending, error, data } = useQuery({
         queryKey: ["bookings"],
         queryFn: () =>
-            fetch("http://localhost:3000/api/bookings").then((res) =>
-                res.json()
-            ),
+            fetch(
+                (process.env.NEXT_PUBLIC_APP_URL ||
+                    process.env.NEXTAUTH_URL ||
+                    "http://localhost:3000") + "/api/bookings"
+            ).then((res) => res.json()),
     });
 
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: ({ id, status }: { id: string; status: string }) => {
-            return fetch(`http://localhost:3000/api/bookings/${id}`, {
+            const baseUrl =
+                process.env.NEXT_PUBLIC_APP_URL ||
+                process.env.NEXTAUTH_URL ||
+                "http://localhost:3000";
+            return fetch(`${baseUrl}/api/bookings/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

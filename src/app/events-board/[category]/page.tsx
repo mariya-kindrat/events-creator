@@ -9,9 +9,14 @@ type Props = {
     }>;
 };
 
+const getBaseUrl = () =>
+    process.env.NEXT_PUBLIC_APP_URL ||
+    process.env.NEXTAUTH_URL ||
+    "http://localhost:3000";
+
 const getData = async (category: string) => {
     const response = await fetch(
-        `http://localhost:3000/api/events?category=${category}`,
+        `${getBaseUrl()}/api/events?category=${category}`,
         {
             method: "GET",
             cache: "no-store",
@@ -26,7 +31,7 @@ const getData = async (category: string) => {
 
 // Get category info for display
 const getCategoryInfo = async (category: string) => {
-    const response = await fetch("http://localhost:3000/api/categories", {
+    const response = await fetch(`${getBaseUrl()}/api/categories`, {
         method: "GET",
         cache: "no-store",
     });

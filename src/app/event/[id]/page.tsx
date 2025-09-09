@@ -5,8 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+const getBaseUrl = () =>
+    process.env.NEXT_PUBLIC_APP_URL ||
+    process.env.NEXTAUTH_URL ||
+    "http://localhost:3000";
+
 const getData = async (id: string) => {
-    const response = await fetch(`http://localhost:3000/api/events/${id}`, {
+    const response = await fetch(`${getBaseUrl()}/api/events/${id}`, {
         method: "GET",
         cache: "no-store",
     });

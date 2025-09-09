@@ -18,7 +18,11 @@ const DeleteButton = ({ id }: { id: number }) => {
     }
 
     const handleDeleteEventFromDB = async () => {
-        const response = await fetch(`http://localhost:3000/api/events/${id}`, {
+        const baseUrl =
+            process.env.NEXT_PUBLIC_APP_URL ||
+            process.env.NEXTAUTH_URL ||
+            "http://localhost:3000";
+        const response = await fetch(`${baseUrl}/api/events/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

@@ -1,8 +1,14 @@
 import { EventType } from "@/types/types";
 import Image from "next/image";
 
+// Build base URL for SSR-safe fetches
+const getBaseUrl = () =>
+    process.env.NEXT_PUBLIC_APP_URL ||
+    process.env.NEXTAUTH_URL ||
+    "http://localhost:3000";
+
 const getData = async () => {
-    const response = await fetch("http://localhost:3000/api/events", {
+    const response = await fetch(`${getBaseUrl()}/api/events`, {
         method: "GET",
         cache: "no-store",
     });

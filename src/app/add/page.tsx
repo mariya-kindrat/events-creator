@@ -217,17 +217,22 @@ const AddPage = () => {
 
         try {
             const imageUrl = await uploadImage(eventFile!);
-            const response = await fetch("http://localhost:3000/api/events", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    image: imageUrl,
-                    ...inputs,
-                    options: options,
-                }),
-            });
+            const response = await fetch(
+                (process.env.NEXT_PUBLIC_APP_URL ||
+                    process.env.NEXTAUTH_URL ||
+                    "http://localhost:3000") + "/api/events",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        image: imageUrl,
+                        ...inputs,
+                        options: options,
+                    }),
+                }
+            );
 
             const data = await response.json();
 
@@ -261,7 +266,9 @@ const AddPage = () => {
         try {
             const imageUrl = await uploadImage(categoryFile!);
             const response = await fetch(
-                "http://localhost:3000/api/categories",
+                (process.env.NEXT_PUBLIC_APP_URL ||
+                    process.env.NEXTAUTH_URL ||
+                    "http://localhost:3000") + "/api/categories",
                 {
                     method: "POST",
                     headers: {

@@ -2,8 +2,13 @@ import { EventCategory } from "@/types/types";
 import Link from "next/link";
 import { Suspense } from "react";
 
+const getBaseUrl = () =>
+    process.env.NEXT_PUBLIC_APP_URL ||
+    process.env.NEXTAUTH_URL ||
+    "http://localhost:3000";
+
 const getData = async () => {
-    const response = await fetch("http://localhost:3000/api/categories", {
+    const response = await fetch(`${getBaseUrl()}/api/categories`, {
         method: "GET",
         cache: "no-store",
     });
