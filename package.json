@@ -49,5 +49,8 @@
         "eslint-config-next": "15.2.4",
         "prisma": "^6.9.0",
         "typescript": "^5"
+    },
+    "overrides": {
+        "ansi-styles": "6.2.1"
     }
 }
