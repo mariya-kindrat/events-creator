@@ -51,6 +51,12 @@
         "typescript": "^5"
     },
     "overrides": {
-        "ansi-styles": "6.2.1"
+        "ansi-styles": "6.2.1",
+        "wrap-ansi": {
+            "ansi-styles": "6.2.1"
+        },
+        "wrap-ansi-cjs": {
+            "ansi-styles": "6.2.1"
+        }
     }
 }
