@@ -19,7 +19,11 @@ applications:
                   commands:
                       - echo "Build completed successfully!"
                       - echo "Final environment check..."
-                      - printenv | grep -E "(DATABASE_URL|NEXTAUTH)" || echo "Environment variables not found"
+                      - echo "Checking DATABASE_URL..."
+                      - if [ -z "$DATABASE_URL" ]; then echo "ERROR: DATABASE_URL is not set"; exit 1; else echo "DATABASE_URL is set"; fi
+                      - echo "Checking NEXTAUTH_SECRET..."
+                      - if [ -z "$NEXTAUTH_SECRET" ]; then echo "ERROR: NEXTAUTH_SECRET is not set"; exit 1; else echo "NEXTAUTH_SECRET is set"; fi
+                      - echo "All required environment variables are set"
           artifacts:
               baseDirectory: .next
               files:
