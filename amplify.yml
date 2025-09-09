@@ -1,27 +1,33 @@
 version: 1
-applications:
-    - frontend:
-          phases:
-              preBuild:
-                  commands:
-                      - echo "=== Environment Variables Debug ==="
-                      - echo "NODE_ENV=$NODE_ENV"
-                      - echo "DATABASE_URL exists:" $(if [ -n "$DATABASE_URL" ]; then echo "YES"; else echo "NO"; fi)
-                      - echo "NEXTAUTH_SECRET exists:" $(if [ -n "$NEXTAUTH_SECRET" ]; then echo "YES"; else echo "NO"; fi)
-                      - echo "ENABLE_DEBUG=$ENABLE_DEBUG"
-                      - echo "=== Installing dependencies ==="
-                      - npm ci
-                      - echo "=== Generating Prisma client ==="
-                      - npx prisma generate
-              build:
-                  commands:
-                      - echo "=== Building Next.js application ==="
-                      - npm run build
-          artifacts:
-              baseDirectory: .next
-              files:
-                  - "**/*"
-          cache:
-              paths:
-                  - node_modules/**/*
-                  - .next/cache/**/*
+frontend:
+    phases:
+        preBuild:
+            commands:
+                - echo "=== Pre-Build Phase ==="
+                - echo "Node.js version:" $(node --version)
+                - echo "NPM version:" $(npm --version)
+                - echo "Installing dependencies..."
+                - npm ci
+                - echo "Validating environment variables..."
+                - npm run validate-env
+        build:
+            commands:
+                - echo "=== Build Phase ==="
+                - echo "Building Next.js application..."
+                - npm run build:amplify
+        postBuild:
+            commands:
+                - echo "=== Post Build Phase ==="
+                - echo "Build completed successfully"
+                - echo "Listing build output..."
+                - ls -la .next/ || echo "No .next directory found"
+                - echo "Checking for static export..."
+                - ls -la out/ || echo "No out directory found"
+    artifacts:
+        baseDirectory: .next
+        files:
+            - "**/*"
+    cache:
+        paths:
+            - node_modules/**/*
+            - .next/cache/**/*
