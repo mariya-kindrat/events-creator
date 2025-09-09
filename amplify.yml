@@ -6,10 +6,11 @@ applications:
                   commands:
                       - echo "Installing dependencies..."
                       - npm ci
+                      - echo "Setting up build environment..."
+                      - chmod +x scripts/setup-build-env.sh
+                      - ./scripts/setup-build-env.sh
                       - echo "Generating Prisma client..."
                       - npx prisma generate
-                      - echo "Syncing database schema..."
-                      - npx prisma db push --skip-generate
               build:
                   commands:
                       - echo "Building Next.js application..."
@@ -17,6 +18,8 @@ applications:
               postBuild:
                   commands:
                       - echo "Build completed successfully!"
+                      - echo "Final environment check..."
+                      - printenv | grep -E "(DATABASE_URL|NEXTAUTH)" || echo "Environment variables not found"
           artifacts:
               baseDirectory: .next
               files:
