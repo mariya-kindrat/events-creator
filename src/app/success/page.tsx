@@ -1,33 +1,21 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
-const SuccessPage = () => {
+function SuccessContent() {
     const searchParams = useSearchParams();
     const payment_intent = searchParams.get("payment_intent");
     const router = useRouter();
 
     useEffect(() => {
+        if (!payment_intent) return;
         const confirmPayment = async () => {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/api/confirm/${payment_intent}`,
-                    {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-
-                // if (!response.ok) {
-                //     throw new Error("Failed to confirm payment");
-                // }
-
-                // const data = await response.json();
-                // console.log("Payment confirmed:", data);
-
+                await fetch(`/api/confirm/${payment_intent}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                });
                 router.push("/booking");
             } catch (error) {
                 console.error("Error confirming payment:", error);
@@ -43,6 +31,12 @@ const SuccessPage = () => {
             Please, do not close the page
         </div>
     );
-};
+}
 
-export default SuccessPage;
+export default function SuccessPage() {
+    return (
+        <Suspense fallback={<div>Processing payment...</div>}>
+            <SuccessContent />
+        </Suspense>
+    );
+}

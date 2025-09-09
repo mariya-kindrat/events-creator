@@ -169,8 +169,9 @@ const EventGallery = ({ event }: { event: EventType }) => (
     </div>
 );
 
-const SingleEvent = async ({ params }: { params: { id: string } }) => {
-    const singleEvent: EventType = await getData(params.id);
+const SingleEvent = async ({ params }: { params: Promise<{ id: string }> }) => {
+    const { id } = await params;
+    const singleEvent: EventType = await getData(id);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">

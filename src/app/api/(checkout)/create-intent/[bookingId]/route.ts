@@ -6,9 +6,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export const POST = async (
     request: NextRequest,
-    { params }: { params: { bookingId: string } }
+    { params }: { params: Promise<{ bookingId: string }> }
 ) => {
-    const { bookingId } = params;
+    const { bookingId } = await params;
     const booking = await prisma.booking.findUnique({
         where: { id: bookingId },
     });

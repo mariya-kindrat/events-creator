@@ -1,0 +1,9 @@
+# Ignore generated code and build outputs
+.next/
+node_modules/
+
+# Prisma generated client and types
+src/generated/
+
+# TypeScript build outputs
+**/*.d.ts

@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 // GET SINGLE PRODUCT
 export const GET = async (
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) => {
-    const { id } = params;
+    const { id } = await params;
 
     try {
         const event = await prisma.event.findUnique({
@@ -31,9 +31,9 @@ export const GET = async (
 // DELETE SINGLE PRODUCT
 export const DELETE = async (
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) => {
-    const { id } = params;
+    const { id } = await params;
 
     const session = await getAuthSession();
 

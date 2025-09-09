@@ -40,7 +40,7 @@ const SingleEventPrice = ({ event }: { event: EventType }) => {
 
     const handleAddToCart = () => {
         addToCart({
-            id: event.id,
+            id: String(event.id), // cart expects string id
             title: event.title,
             image: event.image,
             price: total,

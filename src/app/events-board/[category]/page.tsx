@@ -4,9 +4,9 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 type Props = {
-    params: {
+    params: Promise<{
         category: string;
-    };
+    }>;
 };
 
 const getData = async (category: string) => {
@@ -204,9 +204,10 @@ const FilterSort = () => (
 );
 
 const CategoryPage = async ({ params }: Props) => {
+    const { category } = await params;
     const [events, categoryInfo] = await Promise.all([
-        getData(params.category),
-        getCategoryInfo(params.category),
+        getData(category),
+        getCategoryInfo(category),
     ]);
 
     return (

@@ -1,11 +1,11 @@
 import prisma from "@/utils/connect";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export const PUT = async (
-    request: NextRequest,
-    { params }: { params: { intentId: string } }
+    _req: Request,
+    { params }: { params: Promise<{ intentId: string }> }
 ) => {
-    const { intentId } = params;
+    const { intentId } = await params;
 
     try {
         await prisma.booking.update({
