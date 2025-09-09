@@ -44,11 +44,8 @@ const nextConfig: NextConfig = {
             process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     },
-    // Experimental features for better performance
-    experimental: {
-        // Enable server components optimization
-        serverComponentsExternalPackages: ["@prisma/client", "prisma"],
-    },
+    // Server external packages for better performance
+    serverExternalPackages: ["@prisma/client", "prisma"],
     /* config options here */
 };
 

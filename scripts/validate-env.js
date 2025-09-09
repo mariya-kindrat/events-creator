@@ -1,5 +1,57 @@
 #!/usr/bin/env node
 
+// Load environment variables from .env file
+const fs = require("fs");
+const path = require("path");
+
+// Function to load .env file
+function loadEnvFile(filePath) {
+    if (fs.existsSync(filePath)) {
+        const envContent = fs.readFileSync(filePath, "utf8");
+        const lines = envContent.split("\n");
+
+        lines.forEach((line) => {
+            line = line.trim();
+            if (line && !line.startsWith("#")) {
+                const [key, ...valueParts] = line.split("=");
+                if (key && valueParts.length > 0) {
+                    const value = valueParts
+                        .join("=")
+                        .replace(/^["']|["']$/g, "");
+                    if (!process.env[key]) {
+                        process.env[key] = value;
+                    }
+                }
+            }
+        });
+        console.log(
+            `✅ Loaded environment variables from ${path.basename(filePath)}`
+        );
+        return true;
+    }
+    return false;
+}
+
+// Try to load .env files in order of preference
+const envFiles = [
+    path.join(process.cwd(), ".env.local"),
+    path.join(process.cwd(), ".env"),
+];
+
+let envLoaded = false;
+for (const envFile of envFiles) {
+    if (loadEnvFile(envFile)) {
+        envLoaded = true;
+        break;
+    }
+}
+
+if (!envLoaded) {
+    console.log(
+        "⚠️  No .env file found, using system environment variables only"
+    );
+}
+
 console.log("=== Environment Variables Validation ===");
 
 const requiredEnvVars = [
