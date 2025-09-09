@@ -10,8 +10,10 @@ frontend:
                 - echo "Environment check..."
                 - env | grep -E "(NODE_ENV|DATABASE_URL|NEXTAUTH)" || echo "No matching env vars found"
                 - echo "Installing dependencies..."
-                - npm ci --no-audit --no-fund --prefer-offline
+                - npm ci --no-audit --no-fund --prefer-offline --include=dev
                 - echo "Dependencies installed successfully"
+                - echo "Verifying PostCSS dependencies..."
+                - npm list autoprefixer postcss tailwindcss || echo "Some PostCSS dependencies missing"
                 - echo "Generating Prisma client..."
                 - npx prisma generate
                 - echo "Prisma client generated successfully"
