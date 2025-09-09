@@ -8,8 +8,8 @@ applications:
                       - npm ci
                       - echo "Generating Prisma client..."
                       - npx prisma generate
-                      - echo "Applying Prisma migrations..."
-                      - npx prisma migrate deploy
+                      - echo "Syncing database schema..."
+                      - npx prisma db push --skip-generate
               build:
                   commands:
                       - echo "Building Next.js application..."
