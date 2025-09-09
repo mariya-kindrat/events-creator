@@ -1,0 +1,27 @@
+version: 1
+applications:
+    - frontend:
+          phases:
+              preBuild:
+                  commands:
+                      - echo "=== Environment Variables Debug ==="
+                      - echo "NODE_ENV=$NODE_ENV"
+                      - echo "DATABASE_URL exists:" $(if [ -n "$DATABASE_URL" ]; then echo "YES"; else echo "NO"; fi)
+                      - echo "NEXTAUTH_SECRET exists:" $(if [ -n "$NEXTAUTH_SECRET" ]; then echo "YES"; else echo "NO"; fi)
+                      - echo "ENABLE_DEBUG=$ENABLE_DEBUG"
+                      - echo "=== Installing dependencies ==="
+                      - npm ci
+                      - echo "=== Generating Prisma client ==="
+                      - npx prisma generate
+              build:
+                  commands:
+                      - echo "=== Building Next.js application ==="
+                      - npm run build
+          artifacts:
+              baseDirectory: .next
+              files:
+                  - "**/*"
+          cache:
+              paths:
+                  - node_modules/**/*
+                  - .next/cache/**/*
