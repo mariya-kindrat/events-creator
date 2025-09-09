@@ -1,5 +1,10 @@
 // Simple script to test environment variables after deployment
-const testEndpoints = ["/api/debug/env", "/api/test-db", "/api/events"];
+const testEndpoints = [
+    "/api/env-check",
+    "/api/debug/env",
+    "/api/test-db",
+    "/api/events",
+];
 
 const baseUrl = "https://master.d16jh2qsui6dp9.amplifyapp.com";
 
