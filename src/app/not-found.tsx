@@ -1,5 +1,19 @@
 import Link from "next/link";
 
+// Client component for the back button
+function BackButton() {
+    "use client";
+
+    return (
+        <button
+            onClick={() => window.history.back()}
+            className="w-full px-6 py-3 rounded-xl border border-slate-600 text-slate-300 hover:border-blue-500 hover:text-white font-medium transition-all duration-300"
+        >
+            Go Back
+        </button>
+    );
+}
+
 export default function NotFound() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-4">
@@ -35,12 +49,7 @@ export default function NotFound() {
                         <Link href="/" className="block w-full btn-premium">
                             Go Home
                         </Link>
-                        <button
-                            onClick={() => window.history.back()}
-                            className="w-full px-6 py-3 rounded-xl border border-slate-600 text-slate-300 hover:border-blue-500 hover:text-white font-medium transition-all duration-300"
-                        >
-                            Go Back
-                        </button>
+                        <BackButton />
                     </div>
                 </div>
             </div>
