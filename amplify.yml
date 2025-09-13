@@ -11,9 +11,7 @@ frontend:
                 - env | grep -E "(NODE_ENV|DATABASE_URL|NEXTAUTH|GOOGLE|STRIPE|NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)" || echo "No matching env vars found"
                 - node scripts/validate-env-amplify.js
                 - echo "Installing dependencies..."
-                - echo "Forcing fresh dependency resolution (remove lockfile)"
-                - rm -f package-lock.json || true
-                - npm install --no-audit --no-fund --prefer-offline --include=dev
+                - npm ci --no-audit --no-fund || npm install --no-audit --no-fund --include=dev
                 - npm dedupe || true
                 - echo "Dependencies installed successfully"
                 - echo "Verifying PostCSS dependencies..."
