@@ -522,3 +522,6 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";

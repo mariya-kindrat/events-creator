@@ -157,3 +157,6 @@ export default function AuthDebug() {
         </div>
     );
 }
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";

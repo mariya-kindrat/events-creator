@@ -40,3 +40,6 @@ export default function SuccessPage() {
         </Suspense>
     );
 }
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";

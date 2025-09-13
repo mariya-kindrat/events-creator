@@ -420,3 +420,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";

@@ -52,3 +52,6 @@ const PaymentPage = () => {
 };
 
 export default PaymentPage;
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";

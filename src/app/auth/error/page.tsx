@@ -94,3 +94,6 @@ export default function AuthError() {
         </Suspense>
     );
 }
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";

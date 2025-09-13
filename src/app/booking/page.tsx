@@ -275,3 +275,6 @@ const BookingPage = () => {
 };
 
 export default BookingPage;
+
+// Force dynamic rendering - prevent static generation
+export const dynamic = "force-dynamic";
