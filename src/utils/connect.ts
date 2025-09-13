@@ -6,15 +6,22 @@ const globalForPrisma = global as unknown as {
     prisma: PrismaClient;
 };
 
-// Check if DATABASE_URL is available
-if (!process.env.DATABASE_URL) {
-    console.error("DATABASE_URL environment variable is not set");
+// Use DATABASE_URL for all environments
+const getDatabaseUrl = () => {
+    if (process.env.DATABASE_URL) {
+        console.log("Using DATABASE_URL for database connection");
+        return process.env.DATABASE_URL;
+    }
+
+    console.error("No database URL found!");
     console.error(
         "Available environment variables:",
         Object.keys(process.env).filter((key) => key.includes("DATABASE"))
     );
     throw new Error("DATABASE_URL environment variable is required");
-}
+};
+
+const databaseUrl = getDatabaseUrl();
 
 const prisma =
     globalForPrisma.prisma ||
@@ -25,7 +32,7 @@ const prisma =
                 : ["error"],
         datasources: {
             db: {
-                url: process.env.DATABASE_URL,
+                url: databaseUrl,
             },
         },
     });
