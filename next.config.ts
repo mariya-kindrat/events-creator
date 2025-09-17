@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
                 hostname: "res.cloudinary.com",
             },
         ],
+        // Fix for Turbopack image optimization issues
+        unoptimized: true,
     },
     // Optimize for serverless deployment
     output: "standalone",

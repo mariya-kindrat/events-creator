@@ -212,7 +212,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\shtum\\OneDrive\\Desktop\\react_starter_apps\\projects\\mine\\nextjs_typescript\\events-api\\event_ui_docker\\src\\generated\\prisma",
+      "value": "/Volumes/mary_ssd/my_projects/events_project/event_ui_docker/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -221,7 +221,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       },
       {
@@ -234,7 +234,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\shtum\\OneDrive\\Desktop\\react_starter_apps\\projects\\mine\\nextjs_typescript\\events-api\\event_ui_docker\\prisma\\schema.prisma",
+    "sourceFilePath": "/Volumes/mary_ssd/my_projects/events_project/event_ui_docker/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

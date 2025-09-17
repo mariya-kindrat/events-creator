@@ -71,7 +71,7 @@ Development (Local) → Test (AWS Amplify) → Production (AWS Amplify)
 
     ```bash
     # Replace with your actual test URL
-    curl https://develop.d16jh2qsui6dp9.amplifyapp.com/api/test-db
+    curl [test-url]/api/test-db
     ```
 
 2. **Authentication Testing**

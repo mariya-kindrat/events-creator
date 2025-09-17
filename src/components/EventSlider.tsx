@@ -49,11 +49,10 @@ const EventSlider = () => {
                 <div className="flex flex-col lg:flex-row items-center justify-between h-full py-20">
                     {/* TEXT CONTAINER */}
                     <div
-                        className={`flex-1 flex flex-col items-center lg:items-start justify-center space-y-8 text-center lg:text-left transition-all duration-1000 ${
-                            isLoaded
-                                ? "opacity-100 translate-y-0"
-                                : "opacity-0 translate-y-10"
-                        }`}
+                        className={`flex-1 flex flex-col items-center lg:items-start justify-center space-y-8 text-center lg:text-left transition-all duration-1000 ${isLoaded
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-10"
+                            }`}
                     >
                         {/* Badge */}
                         <div className="inline-flex items-center px-4 py-2 rounded-full glass border border-blue-500/30 text-blue-300 text-sm font-medium">
@@ -145,7 +144,8 @@ const EventSlider = () => {
                                 alt={SLIDER_DATA[currentSlide].title}
                                 fill
                                 className="object-cover transition-transform duration-700 hover:scale-110"
-                                priority
+                                priority={currentSlide === 0}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
 
                             {/* Floating elements */}
@@ -202,11 +202,10 @@ const EventSlider = () => {
                         <button
                             key={index}
                             onClick={() => setCurrentSlide(index)}
-                            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                                index === currentSlide
-                                    ? "bg-gradient-to-r from-blue-500 to-purple-500 scale-125"
-                                    : "bg-slate-600 hover:bg-slate-500"
-                            }`}
+                            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
+                                ? "bg-gradient-to-r from-blue-500 to-purple-500 scale-125"
+                                : "bg-slate-600 hover:bg-slate-500"
+                                }`}
                         />
                     ))}
                 </div>
