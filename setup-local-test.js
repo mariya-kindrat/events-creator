@@ -74,13 +74,15 @@ NEXTAUTH_URL="${nextAuthUrl}"
 NEXTAUTH_SECRET="${authSecret}"
 NODE_ENV="development"
 
-# OAuth Credentials (using production values for testing)
-GOOGLE_ID=103651864623-ma6tnpp0ubl3mn3b3i1s05vr5b9uqk6q.apps.googleusercontent.com
-GOOGLE_SECRET=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
+# OAuth Credentials
+GOOGLE_ID="${process.env.GOOGLE_ID || ""}"
+GOOGLE_SECRET="${process.env.GOOGLE_SECRET || ""}"
 
 # Stripe Test Keys
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51PphsnP0tBNZLlr5p5ZC7OLLqX84Z5FtrsgqhSyv5HEkucxUyqxVT0saMPR5nIScaDo7axSzzPqRYXxccew7MOlq00mfndWS8P
-STRIPE_SECRET_KEY=sk_test_51PphsnP0tBNZLlr5uC9s9Mz1paDRKxMEnEvRN931SuQ1SeGJ0CTm52exZ3nYeJv8OktlbO7XExTTeVrqLDcyhIUF005e33uAan
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="${
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
+    }"
+STRIPE_SECRET_KEY="${process.env.STRIPE_SECRET_KEY || ""}"
 `;
 
     // Write .env.local file
