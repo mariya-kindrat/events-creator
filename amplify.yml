@@ -19,6 +19,8 @@ frontend:
                 - echo "Generating Prisma client..."
                 - npx prisma generate
                 - echo "Prisma client generated successfully"
+                - echo "Pushing Prisma schema to database..."
+                - npx prisma db push
         build:
             commands:
                 - echo "=== Build Phase ==="
