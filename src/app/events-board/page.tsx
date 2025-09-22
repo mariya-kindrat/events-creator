@@ -2,8 +2,17 @@ import { EventCategory } from "@/types/types";
 import Link from "next/link";
 import { Suspense } from "react";
 
+// Base URL for SSR/SSG-safe fetches
+const getBaseUrl = () =>
+    process.env.NEXT_PUBLIC_APP_URL ||
+    process.env.NEXTAUTH_URL ||
+    "http://localhost:3000";
+
+// Enable ISR for this page
+export const revalidate = 300;
+
 const getData = async () => {
-    const response = await fetch(`/api/categories`, {
+    const response = await fetch(`${getBaseUrl()}/api/categories`, {
         method: "GET",
         next: { revalidate: 300 },
     });
