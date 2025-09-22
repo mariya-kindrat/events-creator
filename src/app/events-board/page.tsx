@@ -5,7 +5,7 @@ import { Suspense } from "react";
 const getData = async () => {
     const response = await fetch(`/api/categories`, {
         method: "GET",
-        cache: "no-store",
+        next: { revalidate: 300 },
     });
 
     if (!response.ok) {

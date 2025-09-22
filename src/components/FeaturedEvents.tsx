@@ -14,15 +14,14 @@ const getData = async () => {
 
         const response = await fetch(`${baseUrl}/api/events`, {
             method: "GET",
-            cache: "no-store",
+            next: { revalidate: 60 },
         });
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             console.error("API Error:", response.status, errorData);
             throw new Error(
-                `Failed to fetch data: ${response.status} - ${
-                    errorData.error || "Unknown error"
+                `Failed to fetch data: ${response.status} - ${errorData.error || "Unknown error"
                 }`
             );
         }
