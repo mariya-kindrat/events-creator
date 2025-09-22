@@ -1,0 +1,46 @@
+version: 1
+frontend:
+    phases:
+        preBuild:
+            commands:
+                - echo "=== Pre-Build Phase ==="
+                - echo "Node.js version:" $(node --version)
+                - echo "NPM version:" $(npm --version)
+                - echo "Current directory:" $(pwd)
+                - echo "Environment check..."
+                - env | grep -E "(NODE_ENV|DATABASE_URL|NEXTAUTH|GOOGLE|STRIPE|NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)" || echo "No matching env vars found"
+                - node scripts/validate-env-amplify.js
+                - echo "Installing dependencies..."
+                - npm ci --no-audit --no-fund || npm install --no-audit --no-fund --include=dev
+                - npm dedupe || true
+                - echo "Dependencies installed successfully"
+                - echo "Verifying PostCSS dependencies..."
+                - npm list autoprefixer postcss tailwindcss || echo "Some PostCSS dependencies missing"
+                - echo "Generating Prisma client..."
+                - npx prisma generate
+                - echo "Prisma client generated successfully"
+        build:
+            commands:
+                - echo "=== Build Phase ==="
+                - echo "Original NODE_ENV:" $NODE_ENV
+                - echo "Setting NODE_ENV=production for build process (Next.js requirement)"
+                - export NODE_ENV=production
+                - echo "Building Next.js application..."
+                - npm run build:amplify
+                - echo "Build completed successfully"
+        postBuild:
+            commands:
+                - echo "=== Post Build Phase ==="
+                - echo "Listing build output..."
+                - ls -la .next/ || echo "No .next directory found"
+                - echo "Checking standalone output..."
+                - ls -la .next/standalone/ || echo "No standalone directory found"
+                - echo "Build artifacts ready"
+    artifacts:
+        baseDirectory: .next
+        files:
+            - "**/*"
+    cache:
+        paths:
+            - node_modules/**/*
+            - .next/cache/**/*

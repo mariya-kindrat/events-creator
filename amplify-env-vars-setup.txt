@@ -1,0 +1,39 @@
+# AWS Amplify Environment Variables
+# Copy these to your Amplify Console Environment Variables section
+
+## PRODUCTION Environment
+# Branch: main
+
+NODE_ENV=production
+DATABASE_URL='postgresql://neondb_owner:npg_9MP0DWeSVylf@ep-orange-hill-adkvqwrd-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=[HIDDEN]
+GOOGLE_CLIENT_ID=525508206691-jb66eddkvou8i7k120anurfdhp24vnkm.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=[HIDDEN]
+STRIPE_SECRET_KEY=[HIDDEN]
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=[HIDDEN]
+
+## DEVELOPMENT Environment
+# Branch: development
+
+NODE_ENV=development
+DATABASE_URL=postgresql://neondb_owner:npg_9MP0DWeSVylf@ep-snowy-bush-adq2yo6g-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=[HIDDEN]
+GOOGLE_CLIENT_ID=525508206691-jb66eddkvou8i7k120anurfdhp24vnkm.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=[HIDDEN]
+STRIPE_SECRET_KEY=[HIDDEN]
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=[HIDDEN]
+
+## STAGING Environment
+# Branch: staging
+
+NODE_ENV=production
+DATABASE_URL=postgresql://neondb_owner:npg_9MP0DWeSVylf@ep-snowy-bush-adq2yo6g-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=[HIDDEN]
+GOOGLE_CLIENT_ID=525508206691-jb66eddkvou8i7k120anurfdhp24vnkm.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=[HIDDEN]
+STRIPE_SECRET_KEY=[HIDDEN]
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=[HIDDEN]
+
