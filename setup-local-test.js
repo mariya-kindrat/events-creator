@@ -92,12 +92,12 @@ NEXTAUTH_SECRET="${authSecret}"
 NODE_ENV="development"
 
 # OAuth Credentials
-GOOGLE_ID=${googleClientId}
-GOOGLE_SECRET=${googleClientSecret}
+GOOGLE_ID="${googleClientId}"
+GOOGLE_SECRET="${googleClientSecret}"
 
 # Stripe Test Keys
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${stripePk}
-STRIPE_SECRET_KEY=${stripeSk}
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="${stripePk}"
+STRIPE_SECRET_KEY="${stripeSk}"
 `;
 
     // Write .env.local file

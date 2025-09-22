@@ -30,9 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (keep all env files ignored)
+# env files (ignored)
 .env*
-# .env.test is sensitive; do not commit
+!.env.test.example  # Commit example only (no secrets)
 
 # vercel
 .vercel
