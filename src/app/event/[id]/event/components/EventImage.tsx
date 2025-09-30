@@ -11,7 +11,7 @@ const EventImage = ({ event }: EventImageProps) => (
             src={
                 event.images && event.images.length > 0
                     ? event.images[0]
-                    : event.image
+                    : ""
             }
             alt={event.title}
             fill

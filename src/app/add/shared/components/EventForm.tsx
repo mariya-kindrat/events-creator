@@ -21,6 +21,7 @@ export const EventForm = ({
     onFileChange,
     onFilesChange,
     onRemoveFile,
+    onRemoveCurrentImage,
     onDragEnter,
     onDragLeave,
     onDragOver,
@@ -48,6 +49,7 @@ export const EventForm = ({
             dragActive={dragActive}
             onFilesChange={onFilesChange}
             onRemoveFile={onRemoveFile}
+            onRemoveCurrentImage={onRemoveCurrentImage}
             onDragEnter={onDragEnter}
             onDragLeave={onDragLeave}
             onDragOver={onDragOver}

@@ -55,8 +55,7 @@ export const useEditEventForm = (eventId: string) => {
             setOptions(eventData.options || []);
 
             // Set current images
-            const images =
-                eventData.images || (eventData.image ? [eventData.image] : []);
+            const images = eventData.images || [];
             setCurrentImages(images);
         } catch (err) {
             setError(
@@ -112,6 +111,10 @@ export const useEditEventForm = (eventId: string) => {
         setFiles(files.filter((_, i) => i !== index));
     };
 
+    const handleRemoveCurrentImage = (index: number) => {
+        setCurrentImages(currentImages.filter((_, i) => i !== index));
+    };
+
     const handleDrag = (e: React.DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
@@ -161,14 +164,17 @@ export const useEditEventForm = (eventId: string) => {
 
             // Combine current images with new images
             const allImages = [...currentImages, ...newImageUrls];
-            const mainImage = allImages[0] || "";
 
             await updateEvent(eventId, {
-                image: mainImage,
                 images: allImages,
                 ...inputs,
                 options: options,
             });
+
+            // Reset form state after successful update
+            setFile(undefined);
+            setFiles([]);
+            setCurrentImages(allImages); // Update current images to reflect the new state
 
             alert("Event updated successfully!");
             router.push(`/event/${eventId}`);
@@ -198,6 +204,7 @@ export const useEditEventForm = (eventId: string) => {
         onFileChange: handleUploadImage,
         onFilesChange: handleFilesChange,
         onRemoveFile: handleRemoveFile,
+        onRemoveCurrentImage: handleRemoveCurrentImage,
         onDragEnter: handleDrag,
         onDragLeave: handleDrag,
         onDragOver: handleDrag,

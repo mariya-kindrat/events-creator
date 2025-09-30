@@ -6,18 +6,16 @@ interface EventGalleryProps {
 }
 
 const EventGallery = ({ event }: EventGalleryProps) => {
-    // Use images array if available, otherwise fallback to single image
+    // Use images array if available
     let imagesToShow =
         event.images && event.images.length > 0
             ? event.images
-            : event.image
-            ? [event.image]
             : [];
 
     // Ensure we always show exactly 4 images
     // If we have fewer than 4, duplicate the main image to fill the gallery
     if (imagesToShow.length > 0 && imagesToShow.length < 4) {
-        const mainImage = event.image || imagesToShow[0];
+        const mainImage = imagesToShow[0];
         while (imagesToShow.length < 4) {
             imagesToShow.push(mainImage);
         }

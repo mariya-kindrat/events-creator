@@ -36,7 +36,7 @@ const EVENTS_CATEGORIES = [
 const FUTURE_EVENTS_DATA = [
     {
         title: "Abstract Art Workshop",
-        image: "/events/future_event_01.jpg",
+        images: ["/events/future_event_01.jpg"],
         description: "Join us for a creative journey into the world of abstract art. This workshop is designed for artists of all levels, from beginners to advanced. Explore various techniques and mediums to express your unique artistic vision.",
         location: "Art Studio, 123 Main St, Cityville",
         price: 80,
@@ -59,7 +59,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Watercolor Techniques for Beginners",
-        image: "/events/future_event_02.jpg",
+        images: ["/events/future_event_02.jpg"],
         description: "Discover the beauty of watercolor painting in this beginner-friendly workshop. Learn essential techniques, color mixing, and brushwork to create stunning watercolor artworks.",
         location: "Art Studio, 123 Main St, Palm Coast",
         price: 120,
@@ -82,7 +82,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Oil Painting Masterclass",
-        image: "/events/future_event_03.jpg",
+        images: ["/events/future_event_03.jpg"],
         description: "Take your oil painting skills to the next level in this masterclass. Learn advanced techniques, color theory, and composition from a professional artist.",
         location: "Art Studio, 123 Main St, Palm Coast",
         price: 90,
@@ -105,7 +105,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Landscape Painting Essentials",
-        image: "/events/future_event_04.jpg",
+        images: ["/events/future_event_04.jpg"],
         description: "Learn the fundamentals of landscape painting in this workshop. Explore composition, color mixing, and brush techniques to create breathtaking landscapes.",
         location: "Art Studio, 123 Main St, Palm Coast",
         price: 110,
@@ -128,7 +128,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Portrait Painting Workshop",
-        image: "/events/future_event_05.jpg",
+        images: ["/events/future_event_05.jpg"],
         description: "Join us for a portrait painting workshop where you'll learn techniques for capturing the human form and expression. Suitable for all skill levels.",
         location: "Art Studio, 123 Main St, Palm Coast",
         price: 130,
@@ -151,7 +151,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Digital Photography Basics",
-        image: "/events/future_event_06.jpg",
+        images: ["/events/future_event_06.jpg"],
         description: "Learn the fundamentals of digital photography, including camera settings, composition, and lighting techniques. Perfect for beginners looking to improve their photography skills.",
         location: "Photo Studio, 456 Elm St, Cityville",
         price: 100,
@@ -174,7 +174,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Street Photography Workshop",
-        image: "/events/future_event_07.jpg",
+        images: ["/events/future_event_07.jpg"],
         description: "Explore the art of street photography in this hands-on workshop. Learn how to capture candid moments and tell stories through your lens.",
         location: "Downtown Cityville",
         price: 75,
@@ -197,7 +197,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Acrylic Painting for Beginners",
-        image: "/events/future_event_08.jpg",
+        images: ["/events/future_event_08.jpg"],
         description: "Discover the versatility of acrylic paints in this beginner-friendly workshop. Learn blending, layering, and texturing techniques to create vibrant artworks.",
         location: "Art Studio, 789 Maple St, Cityville",
         price: 85,
@@ -220,7 +220,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Yoga and Art Retreat",
-        image: "/events/future_event_09.jpg",
+        images: ["/events/future_event_09.jpg"],
         description: "Combine relaxation and creativity in this unique retreat. Enjoy yoga sessions followed by art workshops to rejuvenate your mind and body.",
         location: "Wellness Center, 321 Oak St, Cityville",
         price: 150,
@@ -243,7 +243,7 @@ const FUTURE_EVENTS_DATA = [
     },
     {
         title: "Urban Sketching Adventure",
-        image: "/events/future_event_10.jpg",
+        images: ["/events/future_event_10.jpg"],
         description: "Join us for an urban sketching adventure where you'll learn to capture the essence of cityscapes with quick and expressive sketches.",
         location: "City Park, 654 Pine St, Cityville",
         price: 70,

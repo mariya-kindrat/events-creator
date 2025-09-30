@@ -185,7 +185,7 @@ exports.Prisma.EventScalarFieldEnum = {
   createdAt: 'createdAt',
   title: 'title',
   location: 'location',
-  image: 'image',
+  images: 'images',
   description: 'description',
   price: 'price',
   isFeatured: 'isFeatured',

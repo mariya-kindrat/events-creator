@@ -43,7 +43,7 @@ const SingleEventPrice = ({ event }: { event: EventType }) => {
             image:
                 event.images && event.images.length > 0
                     ? event.images[0]
-                    : event.image,
+                    : "",
             price: total,
             ...(event.options?.length && {
                 optionsTitle: event.options?.[selected].option,

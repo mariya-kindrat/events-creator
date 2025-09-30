@@ -30,6 +30,7 @@ const EditEventPage = () => {
         onFileChange,
         onFilesChange,
         onRemoveFile,
+        onRemoveCurrentImage,
         onDragEnter,
         onDragLeave,
         onDragOver,
@@ -141,6 +142,7 @@ const EditEventPage = () => {
                                 onFileChange={onFileChange}
                                 onFilesChange={onFilesChange}
                                 onRemoveFile={onRemoveFile}
+                                onRemoveCurrentImage={onRemoveCurrentImage}
                                 onDragEnter={onDragEnter}
                                 onDragLeave={onDragLeave}
                                 onDragOver={onDragOver}

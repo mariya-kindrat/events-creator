@@ -60,6 +60,7 @@ export interface MultiImageUploadProps {
     onDragOver: (e: React.DragEvent) => void;
     onDrop: (e: React.DragEvent) => void;
     onRemoveFile: (index: number) => void;
+    onRemoveCurrentImage?: (index: number) => void;
     maxFiles?: number;
     currentImages?: string[];
 }
@@ -98,6 +99,7 @@ export interface EventFormProps {
     onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onFilesChange: (files: File[]) => void;
     onRemoveFile: (index: number) => void;
+    onRemoveCurrentImage?: (index: number) => void;
     onDragEnter: (e: React.DragEvent) => void;
     onDragLeave: (e: React.DragEvent) => void;
     onDragOver: (e: React.DragEvent) => void;

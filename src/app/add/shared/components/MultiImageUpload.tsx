@@ -13,6 +13,7 @@ export const MultiImageUpload = ({
     onDragOver,
     onDrop,
     onRemoveFile,
+    onRemoveCurrentImage,
     maxFiles = 4,
     currentImages = [],
 }: MultiImageUploadProps) => {
@@ -92,15 +93,13 @@ export const MultiImageUpload = ({
 
             {/* Upload Area */}
             <div
-                className={`relative border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-300 mb-4 ${
-                    dragActive
+                className={`relative border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-300 mb-4 ${dragActive
                         ? "border-purple-500 bg-purple-500/10"
                         : "border-white/20 hover:border-purple-500/50 hover:bg-white/5"
-                } ${
-                    currentImages.length + files.length >= maxFiles
+                    } ${currentImages.length + files.length >= maxFiles
                         ? "opacity-50 pointer-events-none"
                         : ""
-                }`}
+                    }`}
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
                 onDragOver={onDragOver}
@@ -161,6 +160,16 @@ export const MultiImageUpload = ({
                                     fill
                                     className="object-cover"
                                 />
+                                {/* Remove button for current images */}
+                                {onRemoveCurrentImage && (
+                                    <button
+                                        type="button"
+                                        onClick={() => onRemoveCurrentImage(index)}
+                                        className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-opacity duration-200 text-xs"
+                                    >
+                                        ×
+                                    </button>
+                                )}
                                 {/* Current image indicator */}
                                 <div className="absolute bottom-2 left-2 bg-green-600/80 text-white text-xs px-2 py-1 rounded">
                                     Current
