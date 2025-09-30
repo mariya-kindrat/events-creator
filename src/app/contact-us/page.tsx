@@ -113,7 +113,7 @@ const ContactUsPage = () => {
                             {/* Social Links */}
                             <div className="flex space-x-4">
                                 <a
-                                    href="https://github.com/andriy-shtumpf"
+                                    href="https://github.com/mariya-kindrat"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-center w-14 h-14 rounded-2xl glass border border-slate-600/30 text-slate-300 hover:text-white hover:border-blue-500/50 transition-all duration-300 group"
@@ -127,7 +127,7 @@ const ContactUsPage = () => {
                                     </svg>
                                 </a>
                                 <a
-                                    href="https://www.linkedin.com/in/andriy-shtumpf/"
+                                    href="https://www.linkedin.com/in/mariya-kindrat"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-center w-14 h-14 rounded-2xl glass border border-slate-600/30 text-slate-300 hover:text-white hover:border-blue-500/50 transition-all duration-300 group"
@@ -141,7 +141,7 @@ const ContactUsPage = () => {
                                     </svg>
                                 </a>
                                 <a
-                                    href="https://andriyshtumpf.dev"
+                                    href="https://www.kindratmariya.dev"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-center w-14 h-14 rounded-2xl glass border border-slate-600/30 text-slate-300 hover:text-white hover:border-blue-500/50 transition-all duration-300 group"

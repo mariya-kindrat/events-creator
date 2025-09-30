@@ -20,7 +20,7 @@ const Footer = () => {
                             {/* Social Media Icons */}
                             {/* GitHub */}
                             <a
-                                href="https://github.com/andriy-shtumpf"
+                                href="https://github.com/mariya-kindrat"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-10 h-10 glass rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-gray-600/20 transition-all duration-300 group"
@@ -37,7 +37,7 @@ const Footer = () => {
 
                             {/* LinkedIn */}
                             <a
-                                href="https://www.linkedin.com/in/andriy-shtumpf"
+                                href="https://www.linkedin.com/in/mariya-kindrat"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-10 h-10 glass rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600/20 transition-all duration-300 group"
@@ -54,7 +54,7 @@ const Footer = () => {
 
                             {/* Website */}
                             <a
-                                href="https://andriyshtumpf.dev"
+                                href="https://www.kindratmariya.dev"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-10 h-10 glass rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-purple-500/20 transition-all duration-300 group"
@@ -117,47 +117,6 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-
-                    {/* Services */}
-                    {/* <div>
-                        <h4 className="text-white font-semibold text-lg mb-6">
-                            Services
-                        </h4>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-slate-400 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
-                                >
-                                    Corporate Events
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-slate-400 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
-                                >
-                                    Private Parties
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-slate-400 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
-                                >
-                                    Weddings
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-slate-400 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
-                                >
-                                    Art Exhibitions
-                                </Link>
-                            </li>
-                        </ul>
-                    </div> */}
 
                     {/* Contact Info */}
                     <div>
