@@ -1,12 +1,20 @@
+/**
+ * Event - Mobile navigation menu component with hamburger toggle
+ * Displays navigation links, login/booking options, and cart icon in mobile overlay
+ */
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import closeMenuImg from "../../public/temporary/close.png";
-import { links } from "../../public/temporary/data";
-import openMenuImg from "../../public/temporary/open-menu.png";
 import CartIcon from "./CartIcon";
+
+// Navigation links data
+const links = [
+    { id: 1, title: "Home", url: "/" },
+    { id: 2, title: "Events", url: "/events" },
+    { id: 3, title: "About", url: "/about" },
+    { id: 4, title: "Contact", url: "/contact-us" },
+];
 
 const Event = () => {
     const [open, setOpen] = useState(false);
@@ -15,21 +23,45 @@ const Event = () => {
     return (
         <div>
             {!open ? (
-                <Image
-                    src={openMenuImg}
-                    alt=""
-                    width={20}
-                    height={20}
+                <button
                     onClick={() => setOpen(true)}
-                />
+                    className="w-5 h-5 flex flex-col justify-center items-center"
+                    aria-label="Open menu"
+                >
+                    <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    </svg>
+                </button>
             ) : (
-                <Image
-                    src={closeMenuImg}
-                    alt=""
-                    width={20}
-                    height={20}
+                <button
                     onClick={() => setOpen(false)}
-                />
+                    className="w-5 h-5 flex flex-col justify-center items-center"
+                    aria-label="Close menu"
+                >
+                    <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
+                </button>
             )}
             {open && (
                 <div

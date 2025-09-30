@@ -1,87 +1,66 @@
+import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
-// FETCH CATEGORIES
 export const GET = async () => {
     try {
-        const categories = await prisma.category.findMany();
+        const categories = await prisma.category.findMany({
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                image: true,
+                slug: true,
+                color: true,
+            },
+            orderBy: {
+                title: "asc",
+            },
+        });
 
         return new NextResponse(JSON.stringify(categories), {
             status: 200,
+            headers: { "Content-Type": "application/json" },
         });
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        console.error("Error fetching categories:", err);
         return new NextResponse(
-            JSON.stringify({ error: "Failed to fetch categories" }),
-            {
-                status: 500,
-            }
+            JSON.stringify({ message: "Something went wrong!" }),
+            { status: 500, headers: { "Content-Type": "application/json" } }
         );
     }
 };
 
-// ADD CATEGORY
 export const POST = async (request: NextRequest) => {
+    const session = await getAuthSession();
+
+    if (!session?.user.isAdmin) {
+        return new NextResponse(
+            JSON.stringify({
+                message: "You are not authorized to create categories!",
+            }),
+            {
+                status: 403,
+            }
+        );
+    }
+
     try {
         const body = await request.json();
-
-        // Validate required fields
-        const { title, description, color, image, slug } = body;
-
-        if (!title || !description || !color || !image || !slug) {
-            return new NextResponse(
-                JSON.stringify({
-                    error: "Missing required fields. Please provide title, description, color, image, and slug.",
-                }),
-                {
-                    status: 400,
-                }
-            );
-        }
-
-        // Check if slug already exists
-        const existingCategory = await prisma.category.findUnique({
-            where: { slug },
-        });
-
-        if (existingCategory) {
-            return new NextResponse(
-                JSON.stringify({
-                    error: "A category with this slug already exists. Please use a unique slug.",
-                }),
-                {
-                    status: 409,
-                }
-            );
-        }
-
-        // Create the category
         const category = await prisma.category.create({
-            data: {
-                title,
-                description,
-                color,
-                image,
-                slug,
-            },
+            data: body,
         });
 
         return new NextResponse(JSON.stringify(category), {
             status: 201,
         });
     } catch (error) {
-        console.log(error);
+        console.log("Error creating category:", error);
         return new NextResponse(
-            JSON.stringify({ error: "Failed to add category" }),
+            JSON.stringify({ error: "Failed to create category" }),
             {
                 status: 500,
             }
         );
     }
 };
-
-// export const GET = () => {
-//     return new NextResponse("Hello", {
-//         status: 200,
-//     });
-// };

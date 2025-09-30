@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SLIDER_DATA } from "../dummy-store/data";
 
 const EventSlider = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         setIsLoaded(true);
@@ -50,8 +52,8 @@ const EventSlider = () => {
                     {/* TEXT CONTAINER */}
                     <div
                         className={`flex-1 flex flex-col items-center lg:items-start justify-center space-y-8 text-center lg:text-left transition-all duration-1000 ${isLoaded
-                            ? "opacity-100 translate-y-0"
-                            : "opacity-0 translate-y-10"
+                                ? "opacity-100 translate-y-0"
+                                : "opacity-0 translate-y-10"
                             }`}
                     >
                         {/* Badge */}
@@ -82,7 +84,10 @@ const EventSlider = () => {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="btn-premium group">
+                            <button
+                                className="btn-premium group"
+                                onClick={() => router.push("/events-board")}
+                            >
                                 <span className="flex items-center space-x-2">
                                     <span>Book Premium Event</span>
                                     <svg
@@ -109,7 +114,7 @@ const EventSlider = () => {
                         <div className="flex flex-wrap gap-8 pt-8">
                             <div className="text-center">
                                 <div className="text-3xl font-bold text-gradient-primary">
-                                    500+
+                                    15+
                                 </div>
                                 <div className="text-slate-400 text-sm">
                                     Premium Events
@@ -117,7 +122,7 @@ const EventSlider = () => {
                             </div>
                             <div className="text-center">
                                 <div className="text-3xl font-bold text-gradient-primary">
-                                    50K+
+                                    1K+
                                 </div>
                                 <div className="text-slate-400 text-sm">
                                     Happy Guests
@@ -144,8 +149,7 @@ const EventSlider = () => {
                                 alt={SLIDER_DATA[currentSlide].title}
                                 fill
                                 className="object-cover transition-transform duration-700 hover:scale-110"
-                                priority={currentSlide === 0}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority
                             />
 
                             {/* Floating elements */}
@@ -203,8 +207,8 @@ const EventSlider = () => {
                             key={index}
                             onClick={() => setCurrentSlide(index)}
                             className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
-                                ? "bg-gradient-to-r from-blue-500 to-purple-500 scale-125"
-                                : "bg-slate-600 hover:bg-slate-500"
+                                    ? "bg-gradient-to-r from-blue-500 to-purple-500 scale-125"
+                                    : "bg-slate-600 hover:bg-slate-500"
                                 }`}
                         />
                     ))}

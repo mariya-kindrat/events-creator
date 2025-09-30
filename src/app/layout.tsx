@@ -1,7 +1,7 @@
 import AuthProvider from "@/components/AuthProvider";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import Notification from "@/components/Notification";
 import QueryProvider from "@/components/QueryProvider";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
@@ -43,19 +43,20 @@ export default function RootLayout({
             <body
                 className={`${inter.variable} ${poppins.variable} ${jetbrainsMono.variable} antialiased`}
             >
-                <AuthProvider>
-                    <QueryProvider>
-                        <Notification />
-                        <Navbar />
-                        {children}
-                        <Footer />
-                        <ToastContainer
-                            position="bottom-right"
-                            theme="dark"
-                            autoClose={3000}
-                        />
-                    </QueryProvider>
-                </AuthProvider>
+                <ErrorBoundary>
+                    <AuthProvider>
+                        <QueryProvider>
+                            <Navbar />
+                            {children}
+                            <Footer />
+                            <ToastContainer
+                                position="bottom-right"
+                                theme="dark"
+                                autoClose={3000}
+                            />
+                        </QueryProvider>
+                    </AuthProvider>
+                </ErrorBoundary>
             </body>
         </html>
     );

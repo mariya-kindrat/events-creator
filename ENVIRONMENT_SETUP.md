@@ -18,7 +18,7 @@ We use **one environment variable** (`DATABASE_URL`) that points to different da
 
     ```bash
     # Your .env.local should contain:
-    DATABASE_URL="postgresql://neondb_owner:npg_JGD6lOUwupQ7@ep-lucky-dream-ad4mr3hk-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+    DATABASE_URL="postgresql://"
     NEXTAUTH_URL="http://localhost:3000"
     NODE_ENV="development"
     # ... other variables
@@ -61,17 +61,17 @@ For your test branch, use **"Add Override"** to override specific variables:
 
 #### **DATABASE_URL Override**
 
--   **Branch**: `test`
--   **Value**: `postgresql://neondb_owner:npg_JGD6lOUwupQ7@ep-lucky-dream-ad4mr3hk-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require`
+-   **Branch**: `development`
+-   **Value**: postgresql://
 
 #### **NEXTAUTH_URL Override**
 
--   **Branch**: `test`
+-   **Branch**: `development`
 -   **Value**: `https://test.your-app-id.amplifyapp.com`
 
 #### **NODE_ENV Override**
 
--   **Branch**: `test`
+-   **Branch**: `development`
 -   **Value**: `development`
 
 ### **Step 3: Deploy Branches**
