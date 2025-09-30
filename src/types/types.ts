@@ -17,6 +17,7 @@ export type EventType = {
     title: string;
     description?: string;
     image: string;
+    images?: string[];
     location?: string;
     price: number;
     options?: Option[];
@@ -81,7 +82,7 @@ export type ActionType = {
         eventId: string,
         optionsTitle?: string
     ) => CartEventType | undefined;
-    getCartSummary: () => {
+    getCartSummary: () => {a
         itemCount: number;
         totalQuantity: number;
         totalPrice: number;

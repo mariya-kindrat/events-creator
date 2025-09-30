@@ -56,4 +56,4 @@ Write-Host "3. Set up environment variables (see amplify-env-vars.txt)" -Foregro
 Write-Host "4. Deploy and test your application" -ForegroundColor White
 Write-Host ""
 Write-Host "🔗 Your test branch should be available at:" -ForegroundColor Cyan
-Write-Host "   https://develop.d16jh2qsui6dp9.amplifyapp.com/" -ForegroundColor White
+Write-Host "https://develop.d2fcnp581pdhwl.amplifyapp.com/" -ForegroundColor White

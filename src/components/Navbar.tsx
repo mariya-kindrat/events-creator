@@ -1,8 +1,10 @@
+/**
+ * Navbar - Main navigation component with premium glass morphism design
+ * Features responsive design, gradient effects, and mobile hamburger menu
+ */
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import phone from "../../public/temporary/phone_icon.png";
 import CartIcon from "./CartIcon";
 import Event from "./Event";
 import UserLinks from "./UserLinks";
@@ -37,7 +39,7 @@ const Navbar = () => {
                                 <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300"></div>
                             </Link>
                             <Link
-                                href="/"
+                                href="/contact-us"
                                 className="relative group text-slate-300 hover:text-white font-medium text-sm tracking-wide transition-all duration-300"
                             >
                                 <span className="relative z-10">Contact</span>
@@ -66,13 +68,19 @@ const Navbar = () => {
                             {/* Phone Number */}
                             <div className="flex items-center space-x-2 glass rounded-xl px-4 py-2 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
                                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <Image
-                                        src={phone}
-                                        alt="phone"
-                                        width={16}
-                                        height={16}
-                                        className="filter brightness-0 invert"
-                                    />
+                                    <svg
+                                        className="w-4 h-4 text-white"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                        />
+                                    </svg>
                                 </div>
                                 <span className="text-slate-300 font-medium text-sm group-hover:text-white transition-colors duration-300">
                                     +1 234 567 890

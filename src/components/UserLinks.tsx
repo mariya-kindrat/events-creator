@@ -1,5 +1,6 @@
 "use client";
 
+import { useHydration } from "@/hooks/useHydration";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,11 +8,19 @@ import { useRouter } from "next/navigation";
 const UserLinks = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
+    const isHydrated = useHydration();
 
     const handleLogout = async () => {
         await signOut({ redirect: false });
         router.push("/");
     };
+
+    // Don't render anything until hydrated to prevent hydration mismatch
+    if (!isHydrated) {
+        return (
+            <div className="w-16 h-6 bg-slate-700/50 animate-pulse rounded"></div>
+        );
+    }
 
     return (
         <div>

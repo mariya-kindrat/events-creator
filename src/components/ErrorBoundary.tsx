@@ -1,3 +1,7 @@
+/**
+ * ErrorBoundary - Catches JavaScript errors in the component tree and displays a fallback UI
+ * Provides a premium-styled error page with retry functionality for better user experience
+ */
 "use client";
 
 import { Component, ErrorInfo, ReactNode } from "react";
