@@ -12,7 +12,10 @@ const stripePromise = loadStripe(
 
 const PaymentPage = () => {
     const [clientSecret, setClientSecret] = useState("");
+  //to do: made separete type for params
     const params = useParams<{ id: string }>();
+
+
     const id = params.id;
 
     useEffect(() => {

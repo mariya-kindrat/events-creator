@@ -202,7 +202,7 @@ export const useCategoryForm = () => {
     };
 
     const handleChangeInput = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
         const { name, value } = e.target;
 

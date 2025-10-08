@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-// Client component for the back button
 function BackButton() {
     return (
         <button

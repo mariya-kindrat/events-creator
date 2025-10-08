@@ -1,7 +1,3 @@
-/**
- * CartIcon - Shopping cart icon with event count badge
- * Uses Zustand store to display current number of events in cart
- */
 "use client";
 
 import { useHydration } from "@/hooks/useHydration";

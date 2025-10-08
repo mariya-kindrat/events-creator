@@ -26,8 +26,6 @@ const CheckoutForm = () => {
             "payment_intent_client_secret"
         );
 
-        console.log("Client Secret - Checkout Form: ", clientSecret);
-
         if (!clientSecret) {
             return;
         }
@@ -53,20 +51,15 @@ const CheckoutForm = () => {
     }, [stripe]);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        // We don't want to let default form submission happen here,
-        // which would refresh the page.
         event.preventDefault();
 
         if (!stripe || !elements) {
-            // Stripe.js hasn't yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
             return;
         }
 
         setIsLoading(true);
 
         const result = await stripe.confirmPayment({
-            //`Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
                 return_url:

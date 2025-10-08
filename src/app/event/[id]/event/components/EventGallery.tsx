@@ -6,14 +6,11 @@ interface EventGalleryProps {
 }
 
 const EventGallery = ({ event }: EventGalleryProps) => {
-    // Use images array if available
     let imagesToShow =
         event.images && event.images.length > 0
             ? event.images
             : [];
 
-    // Ensure we always show exactly 4 images
-    // If we have fewer than 4, duplicate the main image to fill the gallery
     if (imagesToShow.length > 0 && imagesToShow.length < 4) {
         const mainImage = imagesToShow[0];
         while (imagesToShow.length < 4) {
@@ -21,10 +18,8 @@ const EventGallery = ({ event }: EventGalleryProps) => {
         }
     }
 
-    // Take only the first 4 images if we have more
     imagesToShow = imagesToShow.slice(0, 4);
 
-    // Don't render gallery if no images
     if (imagesToShow.length === 0) {
         return null;
     }
@@ -32,7 +27,6 @@ const EventGallery = ({ event }: EventGalleryProps) => {
     return (
         <div className="mb-8">
             <h3 className="text-xl font-bold text-white mb-4">Event Gallery</h3>
-            {/* 4-image grid layout: 2x2 on mobile, 4 columns on desktop */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {imagesToShow.map((imageUrl, index) => (
                     <div
@@ -45,13 +39,10 @@ const EventGallery = ({ event }: EventGalleryProps) => {
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-500"
                         />
-                        {/* Hover overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        {/* Image number indicator */}
                         <div className="absolute top-2 left-2 bg-black/70 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
                             {index + 1}
                         </div>
-                        {/* View icon on hover */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <div className="bg-white/20 backdrop-blur-md rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
                                 <svg

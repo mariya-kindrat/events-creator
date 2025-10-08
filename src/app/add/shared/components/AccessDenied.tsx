@@ -1,11 +1,11 @@
 interface AccessDeniedProps {
-    title?: string;
-    message?: string;
+    title?: "Access Denied";
+    message?: "You don't have permission to access this page.";
 }
 
 export const AccessDenied = ({
-    title = "Access Denied",
-    message = "You don't have permission to access this page.",
+    title,
+    message,
 }: AccessDeniedProps) => (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-red-900 flex items-center justify-center">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-red-300/20">

@@ -1,14 +1,9 @@
-/**
- * Event - Mobile navigation menu component with hamburger toggle
- * Displays navigation links, login/booking options, and cart icon in mobile overlay
- */
 "use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import CartIcon from "./CartIcon";
 
-// Navigation links data
 const links = [
     { id: 1, title: "Home", url: "/" },
     { id: 2, title: "Events", url: "/events" },

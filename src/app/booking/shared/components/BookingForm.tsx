@@ -1,7 +1,3 @@
-/**
- * BookingForm - Inline form component for editing booking status
- * Allows users to update booking status with a clean input and edit button
- */
 import { BookingFormProps } from "../types";
 
 export const BookingForm = ({ booking, onSubmit }: BookingFormProps) => {

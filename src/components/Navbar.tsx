@@ -1,7 +1,3 @@
-/**
- * Navbar - Main navigation component with premium glass morphism design
- * Features responsive design, gradient effects, and mobile hamburger menu
- */
 "use client";
 
 import Link from "next/link";
@@ -10,10 +6,6 @@ import Event from "./Event";
 import UserLinks from "./UserLinks";
 
 const Navbar = () => {
-    // const user = false; // Simulating user authentication status
-    // const [isScrolled, setIsScrolled] = useState(false);
-
-    // Add scroll effect (you can implement this with useEffect if needed)
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out">

@@ -10,7 +10,7 @@ const AddressForm = () => {
                 }}
                 onChange={(event) => {
                     if (event.complete) {
-                        const address = event.value.address;
+                        event.value.address;
                     }
                 }}
             />

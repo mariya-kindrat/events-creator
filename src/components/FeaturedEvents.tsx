@@ -1,7 +1,4 @@
-/**
- * FeaturedEvents - Server component that fetches and displays featured events
- * Shows first 3 events from the API with premium styling and error handling
- */
+
 import { EventCard } from "@/app/events-board/shared/components";
 import { EventType } from "@/types/types";
 import Link from "next/link";
@@ -43,7 +40,6 @@ const FeaturedEvents = async () => {
     try {
         const featuredEvents: EventType[] = await getData();
 
-        // If no events, show a message
         if (!featuredEvents || featuredEvents.length === 0) {
             return (
                 <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 overflow-hidden">

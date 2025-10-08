@@ -3,7 +3,6 @@ import { SubmitButtonProps } from "../types";
 export const SubmitButton = ({
     isSubmitting,
     text,
-    submittingText = "Creating...",
 }: SubmitButtonProps) => (
     <div className="pt-6">
         <button

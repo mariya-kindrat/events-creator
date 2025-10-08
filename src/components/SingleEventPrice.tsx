@@ -1,16 +1,15 @@
 "use client";
 
-import { useHydration } from "@/hooks/useHydration";
 import { EventType } from "@/types/types";
 import { useCartStore } from "@/utils/store";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+
 const SingleEventPrice = ({ event }: { event: EventType }) => {
     const [total, setTotal] = useState(event.price);
     const [quantity, setQuantity] = useState(1);
     const [selected, setSelected] = useState(0);
-    const isHydrated = useHydration();
 
     const { addToCart } = useCartStore();
 
@@ -38,7 +37,7 @@ const SingleEventPrice = ({ event }: { event: EventType }) => {
 
     const handleAddToCart = () => {
         addToCart({
-            id: String(event.id), // cart expects string id
+            id: String(event.id),
             title: event.title,
             image:
                 event.images && event.images.length > 0

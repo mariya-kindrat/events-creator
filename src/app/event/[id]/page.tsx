@@ -22,22 +22,21 @@ const SingleEvent = async ({ params }: { params: Promise<{ id: string }> }) => {
             <BackgroundElements />
 
             <div className="relative z-10">
-                {/* Header Section */}
+           
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
                     <EventBreadcrumb />
                     <EventStatusBadge />
                 </div>
 
-                {/* Main Content */}
+             
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                        {/* Image Section */}
+                      
                         <div className="relative">
                             <EventImage event={singleEvent} />
                             <EventGallery event={singleEvent} />
                         </div>
 
-                        {/* Content Section */}
                         <div className="space-y-8">
                             <AdminEditButton eventId={singleEvent.id} />
                             <EventHeader event={singleEvent} />

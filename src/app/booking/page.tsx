@@ -42,7 +42,6 @@ const BookingPage = () => {
         return <LoadingSpinner />;
     }
 
-    // Error state
     if (error) {
         return <ErrorState error={error} />;
     }

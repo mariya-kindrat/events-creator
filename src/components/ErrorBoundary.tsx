@@ -1,7 +1,3 @@
-/**
- * ErrorBoundary - Catches JavaScript errors in the component tree and displays a fallback UI
- * Provides a premium-styled error page with retry functionality for better user experience
- */
 "use client";
 
 import { Component, ErrorInfo, ReactNode } from "react";
@@ -34,7 +30,6 @@ class ErrorBoundary extends Component<Props, State> {
                 <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center px-4">
                     <div className="max-w-md w-full text-center">
                         <div className="card-premium p-8">
-                            {/* Error Icon */}
                             <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <svg
                                     className="w-8 h-8 text-red-500"

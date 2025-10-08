@@ -15,7 +15,6 @@ const UserLinks = () => {
         router.push("/");
     };
 
-    // Don't render anything until hydrated to prevent hydration mismatch
     if (!isHydrated) {
         return (
             <div className="w-16 h-6 bg-slate-700/50 animate-pulse rounded"></div>
